@@ -1,0 +1,3 @@
+-----------REQUIREMENTS-----------
+Module :-
+        tkinter
