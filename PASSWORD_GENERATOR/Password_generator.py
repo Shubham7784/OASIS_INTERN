@@ -39,7 +39,7 @@ def generate_pass():
     elif(check_b2==1 and check_b3==1):
         l_num = l - len(pass_sym)
     if(specific_symbol!=""):
-        pass_sym.append(specific_symbol.get())
+        pass_sym.append(specific_symbol.get().split(" "))
     if(check_b1==1):
         a = r.sample(pass_alpha,l_alpha)
         password+= "".join(a)
