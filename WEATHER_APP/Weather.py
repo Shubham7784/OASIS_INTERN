@@ -28,10 +28,10 @@ def fetch_det_cur():
     try:
         date = []
         pg = rs.get(f"http://api.weatherapi.com/v1/forecast.xml?key={api_key}&q={location.get()}")
-        with open(r"OASIS_INTERN\WEATHER_APP\Weather.py","wb") as f:
+        with open(r"OASIS_INTERN\WEATHER_APP\Weather.xml","wb") as f:
             f.write(pg.content)
             f.close()
-        obj = xp.parse(r"OASIS_INTERN\WEATHER_APP\Weather.py")
+        obj = xp.parse(r"OASIS_INTERN\WEATHER_APP\Weather.xml")
         obj = obj.getroot()
         obj= obj.findall('*')
         l = obj[0].find('name').text
