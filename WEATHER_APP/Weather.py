@@ -3,6 +3,7 @@ import xml.etree.ElementTree as xp
 from tkinter import *
 import calendar
 import datetime
+import os
 window = Tk()
 window.title("Weather App")
 menu = Menu(window)
@@ -17,7 +18,7 @@ def fetch_det_cur():
     win.minsize(350,550)
     win.maxsize(350,550)
     win.title("Weather Report")
-    api_key = <API KEY>
+    api_key = "5b2174165cf64cf598e95646240402"
     bgimg = ''
     day = ""
     cond = ""
@@ -27,9 +28,10 @@ def fetch_det_cur():
     try:
         date = []
         pg = rs.get(f"http://api.weatherapi.com/v1/forecast.xml?key={api_key}&q={location.get()}")
-        with open(r"WEATHER_APP\webcontent.xml","wb") as f:
+        with open(r"OASIS_INTERN\WEATHER_APP\Weather.py","wb") as f:
             f.write(pg.content)
-        obj = xp.parse(r"WEATHER_APP\webcontent.xml")
+            f.close()
+        obj = xp.parse(r"OASIS_INTERN\WEATHER_APP\Weather.py")
         obj = obj.getroot()
         obj= obj.findall('*')
         l = obj[0].find('name').text
@@ -46,13 +48,13 @@ def fetch_det_cur():
         date = [int(i) for i in t[0].split('-')]
         day = day_name[(calendar.weekday(date[0],date[1],date[2]))]
         if(int(time[0])>=0 and int(time[0])<4):
-            bgimg = r'WEATHER_APP\Night.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Day.png'
         elif(int(time[0])>=4 and int(time[0])<7):
-            bgimg = r'WEATHER_APP\Morning.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Morning.png'
         elif(int(time[0])>=7 and int(time[0])<17):
-            bgimg = r'WEATHER_APP\Day.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Day.png'
         elif(int(time[0])>=17 and int(time[0])<=23):
-            bgimg = r'WEATHER_APP\Night.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Night.png'
             
     except Exception as e :
         e_label = Label(window,text=e,font=('ariel',8))
@@ -83,9 +85,9 @@ def fetch_det_fore():
     try:
         date = ''
         pg = rs.get(f"http://api.weatherapi.com/v1/forecast.xml?key={api_key}&q={location.get()}&days=3")
-        with open(r"WEATHER_APP\webcontent.xml","wb") as f:
+        with open(r"OASIS_INTERN\WEATHER_APP\Weather.xml","wb") as f:
             f.write(pg.content)
-        obj = xp.parse(r"WEATHER_APP\webcontent.xml")
+        obj = xp.parse(r"OASIS_INTERN\WEATHER_APP\Weather.xml")
         obj = obj.getroot()
         obj = obj.findall('*')
         t = obj[0].find('localtime').text
@@ -106,17 +108,17 @@ def fetch_det_fore():
             attrib.insert(len(attrib)-1,[date,temp,humid,cond])
         if(int(time[0])>=0 and int(time[0])<4):
             bgcolor = '#0f0f0f' #onix
-            bgimg = r'WEATHER_APP\Night.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Night.png'
         elif(int(time[0])>=4 and int(time[0])<7):
             bgcolor = '#ffbf00' #Amber
-            bgimg = r'WEATHER_APP\Morning.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Morning.png'
         elif(int(time[0])>=7 and int(time[0])<17):
             bgcolor = 'fdee00' #Aureolin
-            bgimg = r'WEATHER_APP\Day.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Day.png'
         elif(int(time[0])>=17 and int(time[0])<=23):
             bgcolor = "#100c08" #Smoky Black
             textcolor = '#fffafa'
-            bgimg = r'WEATHER_APP\Night.png'
+            bgimg = r'OASIS_INTERN\WEATHER_APP\Night.png'
             
     except Exception as e :
         e_label = Label(window,text=e,font=('ariel',8))
@@ -199,3 +201,4 @@ dis_menu.add_command(label="Current",command=change_c)
 dis_menu.add_command(label="Forecast",command=change_f)
 window.config(menu=menu,background=bgcolor)
 window.mainloop()
+os.remove(r"OASIS_INTERN\WEATHER_APP\Weather.xml")
