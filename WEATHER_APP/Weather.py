@@ -18,7 +18,7 @@ def fetch_det_cur():
     win.minsize(350,550)
     win.maxsize(350,550)
     win.title("Weather Report")
-    api_key = <API_KEY>
+    api_key = "5b2174165cf64cf598e95646240402"
     bgimg = ''
     day = ""
     cond = ""
